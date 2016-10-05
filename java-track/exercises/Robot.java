@@ -46,7 +46,7 @@ public class Robot {
      this.direction = Direction.values()[(this.direction.ordinal() + 1) % Direction.values().length];
      break;
    case 90:
-     // implementation defined behavior?
+     // modulo operator: implementation defined behavior? -x % y returns -x
      this.direction = Direction.values()[(this.direction.ordinal() + 3) % Direction.values().length];
      break;
    default:
