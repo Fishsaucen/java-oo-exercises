@@ -36,12 +36,12 @@ public class PartyBot extends Robot {
       if (song.toUpperCase().equals(songs[i].toUpperCase())) break;
     }
     if (i == songPos) {
-      songPos--;
+      songs[i] = null;
       return true;
     } else if (i == maxSongs) {
       return false;
     } else {
-      for (int j = i; j < songPos; ++j) {
+      for (int j = i; j < songPos - 1; ++j) {
         songs[j] = songs[j+1];
       }
       songPos--;
@@ -49,17 +49,19 @@ public class PartyBot extends Robot {
     }
   }
   
-  public void toggleSongState()
+  // returns a song if switched on, null if switched off
+  public String toggleSongState()
   {
     if (!isSongPlaying) {
       isSongPlaying = true;
-      playSong();
+      return playSong();
     } else {
       isSongPlaying = false;
+      return null;
     }
   }
   
-  public String playSong()
+  private String playSong()
   {
     return songs[(int)(Math.random() * songPos)];
   }

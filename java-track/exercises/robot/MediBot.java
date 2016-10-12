@@ -38,20 +38,26 @@ public class MediBot extends Robot
   }
   
   // returns excess medicine
-  public int refillMedecine(String type, boolean changeType, int amount)
+  public int refillMedicine(String type, boolean changeType, int amount)
   {
     // check if medicine is of a different type
     if (!type.toUpperCase().equals(medicine.toUpperCase()) && changeType) {
-      setMedicine(type);
-      setMedAmount(amount);
-      return 0;
+      if (amount > maxMedAmount) {
+        setMedicine(type);
+        setMedAmount(maxMedAmount);
+        return amount - maxMedAmount;
+      } else {
+        setMedicine(type);
+        setMedAmount(amount);
+        return 0;
+      }
     } else if (getMedAmount() < maxMedAmount && type.toUpperCase().equals(medicine.toUpperCase())) {
       int refillAmt = maxMedAmount - getMedAmount();
       if (amount < refillAmt) {
         setMedAmount(getMedAmount() + amount);
         return 0;
       } else {
-        setMedAmount(getMedAmount() + (amount - refillAmt));
+        setMedAmount(getMedAmount() + refillAmt);
         return amount - refillAmt;
       }
     } else 
@@ -76,16 +82,12 @@ public class MediBot extends Robot
     return alarmState;
   }
 
-  public void setMedicine(String medicine) {
+  private void setMedicine(String medicine) {
     this.medicine = medicine;
   }
 
-  public void setMedAmount(int medAmount) {
+  private void setMedAmount(int medAmount) {
     this.medAmount = medAmount;
-  }
-
-  public void setAlarmState(boolean alarmState) {
-    this.alarmState = alarmState;
   }
 
   public static void main(String[] args)

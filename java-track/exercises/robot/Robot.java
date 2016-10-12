@@ -61,40 +61,6 @@ public class Robot {
     int tempSpeed = this.speed;
     this.setSpeed(1);
 
-    if (y < posY) {
-      if (direction == Direction.NORTH) {
-        while (y > posY) move();
-
-      } else if (direction == Direction.SOUTH) {
-        for (int i = 0; i < 2; ++i) rotate(90);
-        while (y < posY) move();
-
-      } else if (direction == Direction.EAST) {
-        rotate(90);
-        while (y < posY) move();
-
-      } else {
-        rotate(-90);
-        while (y < posY) move();
-      }
-    } else if (y > posY) {
-      if (direction == Direction.SOUTH) {
-        while (y > posY) move();
-
-      } else if (direction == Direction.NORTH) {
-        for (int i = 0; i < 2; ++i) rotate(90);
-        while (y > posY) move();
-
-      } else if (direction == Direction.EAST) {
-        rotate(-90);
-        while (y > posY) move();
-        
-      } else {
-        rotate(90);
-        while (y > posY) move();
-      }
-    }
-    
     if (x < posX) {
       if (direction == Direction.WEST) {
         while (x < posX) move();
@@ -128,6 +94,41 @@ public class Robot {
         while (x > posX) move();
       }
     }
+
+    if (y < posY) {
+      if (direction == Direction.SOUTH) {
+        while (y > posY) move();
+
+      } else if (direction == Direction.NORTH) {
+        for (int i = 0; i < 2; ++i) rotate(90);
+        while (y < posY) move();
+
+      } else if (direction == Direction.EAST) {
+        rotate(-90);
+        while (y < posY) move();
+
+      } else {
+        rotate(90);
+        while (y < posY) move();
+      }
+    } else if (y > posY) {
+      if (direction == Direction.NORTH) {
+        while (y > posY) move();
+
+      } else if (direction == Direction.SOUTH) {
+        for (int i = 0; i < 2; ++i) rotate(90);
+        while (y > posY) move();
+
+      } else if (direction == Direction.EAST) {
+        rotate(90);
+        while (y > posY) move();
+        
+      } else {
+        rotate(-90);
+        while (y > posY) move();
+      }
+    }
+    
     this.setSpeed(tempSpeed);
   }
 
@@ -240,6 +241,7 @@ public class Robot {
     
     // will this work?
     System.out.println("ultron's distance to itself: " + ultron.getDistance(ultron));
+    
   }
 
 }
