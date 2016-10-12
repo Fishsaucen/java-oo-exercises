@@ -7,9 +7,9 @@ enum Direction
 public class Robot {
   
  
-  private String name;
-  private int posX, posY, speed;
-  private Direction direction;
+  protected String name;
+  protected int posX, posY, speed;
+  protected Direction direction;
   
   public Robot(String name, int posX, int posY, int speed, Direction direction)
   {
@@ -53,6 +53,82 @@ public class Robot {
    default:
      return;
    }
+  }
+
+  public void goToPos(int x, int y)
+  {
+    // make sure we can get to the location 
+    int tempSpeed = this.speed;
+    this.setSpeed(1);
+
+    if (y < posY) {
+      if (direction == Direction.NORTH) {
+        while (y > posY) move();
+
+      } else if (direction == Direction.SOUTH) {
+        for (int i = 0; i < 2; ++i) rotate(90);
+        while (y < posY) move();
+
+      } else if (direction == Direction.EAST) {
+        rotate(90);
+        while (y < posY) move();
+
+      } else {
+        rotate(-90);
+        while (y < posY) move();
+      }
+    } else if (y > posY) {
+      if (direction == Direction.SOUTH) {
+        while (y > posY) move();
+
+      } else if (direction == Direction.NORTH) {
+        for (int i = 0; i < 2; ++i) rotate(90);
+        while (y > posY) move();
+
+      } else if (direction == Direction.EAST) {
+        rotate(-90);
+        while (y > posY) move();
+        
+      } else {
+        rotate(90);
+        while (y > posY) move();
+      }
+    }
+    
+    if (x < posX) {
+      if (direction == Direction.WEST) {
+        while (x < posX) move();
+        
+      } else if (direction == Direction.EAST) {
+        for (int i = 0; i < 2; ++i) rotate(90);
+        while (x < posX) move();
+
+      } else if (direction == Direction.NORTH) {
+        rotate(90);
+        while (x < posX) move();
+        
+      } else {
+        rotate(-90);
+        while (x < posX) move();
+      }
+    } else if (x > posX) {
+      if (direction == Direction.EAST) {
+        while (x > posX) move();
+        
+      } else if (direction == Direction.WEST) {
+        for (int i = 0; i < 2; ++i) rotate(90);
+        while (x > posX) move();
+        
+      } else if (direction == Direction.NORTH) {
+        rotate(-90);
+        while (x > posX) move();
+        
+      } else {
+        rotate(90);
+        while (x > posX) move();
+      }
+    }
+    this.setSpeed(tempSpeed);
   }
 
   public int getDistance(Robot bot)
