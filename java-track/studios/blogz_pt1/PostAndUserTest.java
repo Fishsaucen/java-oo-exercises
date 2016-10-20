@@ -3,6 +3,7 @@ package blogz_pt1;
 import static org.junit.Assert.*;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
@@ -94,47 +95,77 @@ public class PostAndUserTest {
   // Testing of Post begins here
  @Test
   public void testPost() {
-    fail("Not yet implemented");
+   for (int i = 0; i < posts.size(); ++i) {
+     assertEquals("Could not instantiate post properly.", postsBody[i], posts.get(i).getPost());
+     assertEquals("Could not instantiate title properly.", titles[i], posts.get(i).getTitle());
+     assertEquals("Could not instantiate author properly.", users.get(i), posts.get(i).getAuthor());
+   }
   }
 
   @Test
   public void testGetPost() {
-    fail("Not yet implemented");
+    for (int i = 0; i < posts.size(); ++i) {
+      assertEquals("Error, getPost() not working properly.", postsBody[i], posts.get(i).getPost());
+    }
   }
 
   @Test
   public void testGetTitle() {
-    fail("Not yet implemented");
+    for (int i = 0; i < posts.size(); ++i) {
+      assertEquals("Error, getTitle() not working properly.", titles[i], posts.get(i).getTitle());
+    }
   }
 
   @Test
   public void testGetAuthor() {
-    fail("Not yet implemented");
+    for (int i = 0; i < posts.size(); ++i) {
+      assertEquals("Error, getAuthor() not working properly.", users.get(i), posts.get(i).getAuthor());
+    }
   }
 
   @Test
-  public void testGetCreated() {
-    fail("Not yet implemented");
+  public void testGetCreated() throws InterruptedException {
+    Thread.sleep(1000);
+    for (int i = 0; i < posts.size(); ++i) {
+      Date d = new Date();
+      // we're testing whether or not the value returned by getCreated() is less than d
+      assertEquals("Error, getCreated() not working properly.", true, 
+          posts.get(i).getCreated().compareTo(d) <= 0);
+    }
   }
 
   @Test
   public void testGetModified() {
-    fail("Not yet implemented");
+    for (int i = 0; i < posts.size(); ++i) {
+      Date modified = posts.get(i).getModified();
+      assertEquals("Error, getModified() not working properly.", true, 
+          modified.compareTo(posts.get(i).getCreated()) >= 0);
+    }
   }
 
   @Test
   public void testSetPost() {
-    fail("Not yet implemented");
+    for (int i = 0, j = posts.size() - 1; i < posts.size() && j >= 0; ++i, --j) {
+      posts.get(i).setPost(postsBody[j]);
+      assertEquals("Error, setPost() not working properly.", postsBody[j], posts.get(i).getPost());
+    }
   }
 
   @Test
   public void testSetTitle() {
-    fail("Not yet implemented");
+    for (int i = 0, j = posts.size() - 1; i < posts.size() && j >= 0; ++i, --j) {
+      posts.get(i).setTitle(titles[j]);
+      assertEquals("Error, setTitle() not working properly.", titles[j], posts.get(i).getTitle());
+    }
   }
 
   @Test
   public void testPostToString() {
-    fail("Not yet implemented");
+    for (int i = 0; i < posts.size(); ++i) {
+      String str = users.get(i).getName() + "\n" + titles[i] + "\n" + posts.get(i).getCreated().toString() +
+          "\n" + posts.get(i).getModified().toString() + "\n" + postsBody[i];
+      assertEquals("Error in toString() method.", true, posts.get(i).toString().equals(str));
+    }
   }
 
 }
