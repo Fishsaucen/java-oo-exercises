@@ -14,6 +14,11 @@ public class RobotGUI {
   private JFrame frmRobot;
 
   /**
+public class RobotGUI {
+
+  private JFrame frmRobot;
+
+  /**
    * Launch the application.
    */
   public static void main(String[] args) {
@@ -36,6 +41,11 @@ public class RobotGUI {
     initialize();
   }
 
+  /**
+   * Initialize the contents of the frame.
+   */
+  private void initialize() {
+    frmRobot = new JFrame();
   /**
    * Initialize the contents of the frame.
    */
@@ -71,4 +81,3 @@ public class RobotGUI {
     btnComputeDistance.setBounds(12, 123, 171, 25);
     frmRobot.getContentPane().add(btnComputeDistance);
   }
-}
