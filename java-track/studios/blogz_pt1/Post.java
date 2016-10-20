@@ -2,7 +2,7 @@ package blogz_pt1;
 
 import java.util.Date;
 
-public class Post {
+public class Post extends Entity {
 
   private String post;
   private String title;
@@ -12,6 +12,8 @@ public class Post {
   
   public Post(String post, String title, User author)
   {
+    // should differentiate between user id's and post id's
+    super(Entity.getCurrentUid());
     this.post = post;
     this.title = title;
     this.author = author;

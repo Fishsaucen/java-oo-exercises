@@ -38,7 +38,7 @@ public class PostAndUserTest {
     for (int i = 0; i < users.size(); ++i) {
       assertEquals("Could not properly set name for User.", userNames[i], users.get(i).getName());
       assertEquals("Could not properly set password for User.", passwords[i], users.get(i).getPassword());
-      assertEquals("Could not properly set id for User.", i, users.get(i).getId());
+      assertEquals("Could not properly set id for User.", i, users.get(i).getUid());
     }
   }
 
@@ -72,15 +72,10 @@ public class PostAndUserTest {
   }
 
   @Test
-  public void testGetId() {
-    for (int i = 0; i < users.size(); ++i) {
-      assertEquals("Error in getId().", i, users.get(i).getId());
-    }
-  }
-
-  @Test
   public void testGetUid() {
-    assertEquals("Error in getUid().", users.size(), User.getUid());
+    for (int i = 0; i < users.size(); ++i) {
+      assertEquals("Error in getUid().", i, users.get(i).getUid());
+    }
   }
 
   @Test
