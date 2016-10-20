@@ -84,7 +84,7 @@ public class Student {
     return tuition;
   }
   
-  public Student createLegacy(Student s1, Student s2)
+  public static Student createLegacy(Student s1, Student s2)
   {
     double gpaAvg = (s1.getGPA() + s2.getGPA()) / 2;
     int credits = s1.getCredits() > s2.getCredits() ? s1.getCredits() : s2.getCredits();

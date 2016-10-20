@@ -1,5 +1,7 @@
 import static org.junit.Assert.*;
 
+import java.util.ArrayList;
+
 import org.junit.Test;
 
 import junit.framework.TestCase;
@@ -112,7 +114,7 @@ public class StudentAndCourseTest extends TestCase {
 			int c2 = (int)(Math.random() * 120 + 1);
 			double g2 = Math.round(Math.random() * 4000) / 1000.0;
 			ss.submitGrade(g2, c2);
-			Student bb = s.createLegacy(s, ss);
+			Student bb = Student.createLegacy(s, ss);
 			assertTrue("create baby not setting name properly", bb.getName().contains(s.getName()) && bb.getName().contains(ss.getName()));
 			assertEquals("create baby not setting gpa properly", (g + g2) / 2, bb.getGPA(), 0.01);
 			assertEquals("create baby not setting credits properly", bb.getCredits(), Math.max(c, c2));
@@ -216,7 +218,7 @@ public class StudentAndCourseTest extends TestCase {
 			}
 		}
 	}
-
+	
 	@Test
 	public void testCourseToString() {
 		for (int i = 0; i < 100; i++) {
@@ -228,6 +230,20 @@ public class StudentAndCourseTest extends TestCase {
 		}
 	}
 
-
+	@Test
+	public void testGetAllCourses()
+	{
+	  Course c4 = new Course("a", 0, 0);
+	  Course c5 = new Course("b", 0, 0);
+	  Course c6 = new Course("c", 0, 0);
+	  Course c7 = new Course("d", 0, 0);
+	  String[] courseNames = {"a", "b", "c", "d"};
+	  ArrayList<Course> courses = Course.getAllCourses();
+	  
+	  // only check the last courses added since we do not know the other course names
+	  for (int i = courses.size() - 4, j = 0; i < courses.size() && j < courseNames.length; ++i, ++j) {
+	    assertEquals("getAllCourses() not working properly.", courseNames[j], courses.get(i).getName());
+	  }
+	}
 
 }

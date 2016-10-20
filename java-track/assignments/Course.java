@@ -1,9 +1,12 @@
+import java.util.ArrayList;
+
 public class Course {
   
   private String courseName;
   private int credits, remainingSeats;
   private Student[] roster;
   private int currentSeat = 0;
+  private static ArrayList<Course> courses = new ArrayList<Course>();
   
   public Course(String course, int credits, int remainingSeats)
   {
@@ -11,6 +14,7 @@ public class Course {
     this.credits = credits;
     this.remainingSeats = remainingSeats;
     this.roster = new Student[remainingSeats];
+    Course.addCourse(this);
   }
   
   public boolean addStudent(Student s)
@@ -68,6 +72,16 @@ public class Course {
     return courseName + " " + credits;
   }
   
+  private static void addCourse(Course c)
+  {
+    courses.add(c);
+  }
+  
+  public static ArrayList<Course> getAllCourses()
+  {
+    return courses;
+  }
+  
   public static void main(String[] args)
   {
     Student s1 = new Student("a", "b", 1);
@@ -77,6 +91,11 @@ public class Course {
     c.addStudent(s1);
     c.addStudent(s2);
     c.addStudent(s3);
+    Course d = new Course("test", 1, 5);
+    ArrayList<Course> courses = Course.getAllCourses();
+    for (int i = 0; i < courses.size(); ++i) {
+      System.out.println(courses.get(i).getName());
+    }
     System.out.println(c.generateRoster());
   }
 }

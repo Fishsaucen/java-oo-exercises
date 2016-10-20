@@ -193,7 +193,7 @@ public class Robot {
   public static void main(String[] args) {
     
     Robot ultron = new Robot("ultron", 0, 0, 2, Direction.NORTH);
-    Robot buttbot = new Robot("buttbot", 8, 12, 3, Direction.WEST);
+    Robot robby = new Robot("robby", 8, 12, 3, Direction.WEST);
     System.out.println("ultron: " + ultron);
     for (int i = 0; i < 4; ++i) {
       ultron.rotate(90);
@@ -208,38 +208,37 @@ public class Robot {
     }
     
     System.out.println();
-    System.out.println("buttbot: " + buttbot);
+    System.out.println("robby: " + robby);
     for (int i = 0; i < 4; ++i) {
-      buttbot.rotate(90);
-      System.out.println(buttbot.getDirection());
+      robby.rotate(90);
+      System.out.println(robby.getDirection());
     }
     
     System.out.println();
     
     for (int i = 0; i < 4; ++i) {
-      buttbot.rotate(-90);
-      System.out.println(buttbot.getDirection());
+      robby.rotate(-90);
+      System.out.println(robby.getDirection());
     }
     
     // find their distance
-    System.out.println("ultron's distance to buttbot: " + ultron.getDistance(buttbot));
-    System.out.println("buttbot's distance to ultron: " + buttbot.getDistance(ultron));
+    System.out.println("ultron's distance to robby: " + ultron.getDistance(robby));
+    System.out.println("robby's distance to ultron: " + robby.getDistance(ultron));
 
     // move the robuts 
     ultron.move();
     ultron.move();
-    buttbot.move();
-    buttbot.move();
+    robby.move();
+    robby.move();
     
     // print their current values
     System.out.println(ultron);
-    System.out.println(buttbot);
+    System.out.println(robby);
     
     // find their new distance
-    System.out.println("ultron's distance to buttbot: " + ultron.getDistance(buttbot));
-    System.out.println("buttbot's distance to ultron: " + buttbot.getDistance(ultron));
+    System.out.println("ultron's distance to robby: " + ultron.getDistance(robby));
+    System.out.println("robby's distance to ultron: " + robby.getDistance(ultron));
     
-    // will this work?
     System.out.println("ultron's distance to itself: " + ultron.getDistance(ultron));
     
   }
