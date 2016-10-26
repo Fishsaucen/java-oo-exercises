@@ -12,6 +12,7 @@ public class Javagram {
 
 		// Create the base path for images		
 		String[] baseParts = {System.getProperty("user.dir"), "images"};
+		int chosenFilter;
 		String dir = String.join(File.separator, baseParts);
 		String relPath;
 		Picture picture = null;
@@ -40,10 +41,17 @@ public class Javagram {
 		} while(picture == null);
 		
 		// TODO - prompt user for filter and validate input
-		
+		Filter filter = null;
+		do {
+      try {
+        chosenFilter = displayFilterMenu(in);
 		// TODO - pass filter ID int to getFilter, and get an instance of Filter back 
-		BlueFilter filter = getFilter();			
-
+        filter = getFilter(chosenFilter-1);			
+      } catch(RuntimeException e) {
+        System.out.println("Invalid option for filter selected, please try again.");
+      }
+		} while(filter == null);
+		
 		// filter and display image
 		Picture processed = filter.process(picture);
 		processed.show();
@@ -71,11 +79,31 @@ public class Javagram {
 	
 	// TODO - refactor this method to accept an int parameter, and return an instance of the Filter interface
 	// TODO - refactor this method to thrown an exception if the int doesn't correspond to a filter
-	private static BlueFilter getFilter() {
+	private static Filter getFilter(int ID) throws RuntimeException {
+	  
+	  switch (ID) {
+	  case 0: return new BlueFilter();
+	  case 1: return new InvertFilter();
+	  case 2: return new BrightnessFilter();
+	  case 3: return new BlurFilter();
+	  default: throw new RuntimeException();
+	  }
 		
 		// TODO - create some more filters, and add logic to return the appropriate one
-		return new BlueFilter();
+		//return new BlueFilter();
 		
+	}
+	
+	private static int displayFilterMenu(Scanner in)
+	{
+    System.out.println("1) Blue Filter\n" +
+                       "2) Invert Filter\n" +
+                       "3) Brightness Filter\n" +
+                       "4) Blur Filter\n" +
+                       "");
+    System.out.println("Enter the number of the filter you would like to use: ");
+    int id = in.nextInt();
+    return id;
 	}
 
 }
