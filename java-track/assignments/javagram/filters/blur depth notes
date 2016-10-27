@@ -1,0 +1,14 @@
+[>store Color data in ArrayList
+
+[>calculating weight by distance: max(center - abs(x), center - abs(y)) * scaleFactor
+
+[>x and y depth should not necessarily equal each other(this may come in handy for the "puzzle filter").
+  need some way to determine whether or not they should be the same.
+
+[>can skip over areas outside of bounds(when and OOB area is detected set a variable [one for height,
+  one for width] and continue when x or y equals their corresponding value. This value only needs to be
+  calculated once, initialize OOB variables to some value that can never be achieved. Only check if they
+  match that value. Will also need to continue when x == y(this is our center).
+  
+[>need an array for the sum of each bit depth value. calculate blur depth with:
+  max(center - abs(x)), center - abs(y))
