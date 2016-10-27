@@ -5,6 +5,7 @@ import javagram.filters.*;
 import java.io.File;
 import java.util.Arrays;
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class Javagram {
 
@@ -15,6 +16,7 @@ public class Javagram {
 		int chosenFilter;
 		String dir = String.join(File.separator, baseParts);
 		String relPath;
+		String workingDir = "path not set";
 		Picture picture = null;
 		Scanner in = new Scanner(System.in);
 		
@@ -31,6 +33,12 @@ public class Javagram {
 				
 				String[] relPathParts = relPath.split(File.separator);
 				imagePath = dir + File.separator + String.join(File.separator, Arrays.asList(relPathParts));
+				workingDir = dir;
+				// get working directory without file name. need this to list files later.
+				for (int i = 0; i < relPathParts.length - 1; ++i) {
+				  workingDir += File.separator + relPathParts[i];
+				}
+				workingDir += File.separator;
 				
 				picture = new Picture(imagePath);
 				
@@ -58,21 +66,30 @@ public class Javagram {
 		
 		System.out.println("Image successfully filtered");
 		
+		// get list of files in current working directory
+		File f;
+		ArrayList<String> fileNames;
+		if (!workingDir.equals("path not set")) {
+      f = new File(workingDir);
+      fileNames = new ArrayList<String>(Arrays.asList(f.list()));
+		} else {
+		  fileNames = null;
+		}
 		// save image, if desired
 		
 		System.out.println("Save image to (relative to " + dir + ") (type 'exit' to quit w/o saving):");
 		String fileName = in.next();
 		
 		// TODO - if the user enters the same file name as the input file, confirm that they want to overwrite the original
-		
 		if (fileName.equals("exit")) {
 			System.out.println("Image not saved");
 		} else {
-			String absFileName = dir + File.separator + fileName;
-			processed.save(absFileName);
-			System.out.println("Image saved to " + absFileName);
+		  if (overwriteFile(in, fileNames, fileName)) {
+        String absFileName = dir + File.separator + fileName;
+        processed.save(absFileName);
+        System.out.println("Image saved to " + absFileName);
+		  } else System.out.println("Image not saved");
 		}	
-		
 		// close input scanner
 		in.close();
 	}
@@ -89,9 +106,29 @@ public class Javagram {
 	  default: throw new RuntimeException();
 	  }
 		
-		// TODO - create some more filters, and add logic to return the appropriate one
-		//return new BlueFilter();
-		
+	}
+	
+	private static boolean overwriteFile(Scanner in, ArrayList<String> fileNames, String fileName)
+	{
+	  String response;
+	  // file doesn't exist so safe to assume true
+	  if (fileNames.equals(null)) return true;
+	  else {
+		  for (String file : fileNames) {
+		    if (file.equals(fileName)) {
+		      while (true) {
+            System.out.println("Are you sure you want to overwrite \'" + fileName + "\'?[yes/no]");
+            response = in.next();
+            response = response.toLowerCase();
+            if (response.equals("no") || response.equals("n"))
+              return false;
+            else if (response.equals("yes") || response.equals("y"))
+              return true;
+		      }
+		    }
+		  }
+	  }
+	  return true;
 	}
 	
 	private static int displayFilterMenu(Scanner in)
